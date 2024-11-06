@@ -86,7 +86,7 @@ export default function Home() {
         <ul className="list-disc list-inside text-gray-700 space-y-2">
           <li className="flex items-center">
             <FaVideo className="mr-2 text-blue-600" />
- Download videos in high quality (MP4)
+            Download videos in high quality (MP4)
           </li>
           <li className="flex items-center">
             <FaMusic className="mr-2 text-blue-600" />
