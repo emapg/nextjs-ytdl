@@ -88,7 +88,8 @@ export default function Home() {
       <section className="bg-white p-6 rounded-lg shadow-md w-full max-w-2xl mb-10">
         <h2 className="text-2xl font-bold mb-4">FAQ</h2>
         <div className="text-gray-700">
-          <h3 className="font-semibold">Q: Is it legal to download YouTube videos?</h3 <p>A: Downloading videos from YouTube may violate their terms of service. Please ensure you have the right to download the content before doing so.</p>
+          <h3 className="font-semibold">Q: Is it legal to download YouTube videos?</h3>
+          <p>A: Downloading videos from YouTube may violate their terms of service. Please ensure you have the right to download the content before doing so.</p>
           <h3 className="font-semibold">Q: What formats can I download?</h3>
           <p>A: You can download videos in MP4 format and audio in MP3 format.</p>
           <h3 className="font-semibold">Q: Do I need to install any software?</h3>
