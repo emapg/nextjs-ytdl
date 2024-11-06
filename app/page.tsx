@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { FaDownload, FaYoutube, FaInfoCircle, FaQuestionCircle } from 'react-icons/fa';
+import { FaDownload, FaYoutube, FaInfoCircle, FaQuestionCircle, FaVideo, FaMusic, FaUser Friends, FaRocket, FaRegCheckCircle } from 'react-icons/fa';
 
 export default function Home() {
   const [url, setUrl] = useState<string>('');
@@ -83,12 +83,27 @@ export default function Home() {
         <h2 className="text-2xl font-bold mb-4 flex items-center">
           <FaQuestionCircle className="mr-2 text-blue-600" /> Features
         </h2>
-        <ul className="list-disc list-ins ide text-gray-700">
-          <li>Download videos in high quality (MP4)</li>
-          <li>Extract audio as MP3 files</li>
-          <li>Simple and user-friendly interface</li>
-          <li>Fast download speeds</li>
-          <li>No registration required</li>
+        <ul className="list-disc list-inside text-gray-700 space-y-2">
+          <li className="flex items-center">
+            <FaVideo className="mr-2 text-blue-600" />
+ Download videos in high quality (MP4)
+          </li>
+          <li className="flex items-center">
+            <FaMusic className="mr-2 text-blue-600" />
+            Extract audio as MP3 files
+          </li>
+          <li className="flex items-center">
+            <FaUser Friends className="mr-2 text-blue-600" />
+            Simple and user-friendly interface
+          </li>
+          <li className="flex items-center">
+            <FaRocket className="mr-2 text-blue-600" />
+            Fast download speeds
+          </li>
+          <li className="flex items-center">
+            <FaRegCheckCircle className="mr-2 text-blue-600" />
+            No registration required
+          </li>
         </ul>
       </section>
 
