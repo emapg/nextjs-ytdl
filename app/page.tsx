@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { FaDownload, FaYoutube, FaInfoCircle, FaQuestionCircle, FaVideo, FaMusic, FaUser Friends, FaRocket, FaRegCheckCircle } from 'react-icons/fa';
+import { FaDownload, FaYoutube, FaInfoCircle, FaQuestionCircle, FaVideo, FaMusic, FaUser , FaRocket, FaRegCheckCircle } from 'react-icons/fa';
 
 export default function Home() {
   const [url, setUrl] = useState<string>('');
@@ -48,19 +48,22 @@ export default function Home() {
           placeholder="Enter YouTube video URL"
           required
           className="border border-gray-300 p-2 rounded mb-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+          aria-label="YouTube video URL"
         />
         <select
           value={format}
           onChange={(e) => setFormat(e.target.value)}
           className="border border-gray-300 p-2 rounded mb-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+          aria-label="Select download format"
         >
           <option value="video">Video (MP4)</option>
           <option value="mp3">Audio (MP3)</option>
         </select>
         <button
           type="submit"
-          className={`bg-blue-500 text-white p-2 rounded w-full flex items-center justify-center ${loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-600'}`}
+          className={`bg-blue-500 text-white p-2 rounded w-full flex items-center justify-center ${loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-600 transition duration-200'}`}
           disabled={loading}
+          aria-label="Download video or audio"
         >
           <FaDownload className="mr-2" />
           {loading ? 'Downloading...' : 'Download'}
@@ -93,7 +96,7 @@ export default function Home() {
             Extract audio as MP3 files
           </li>
           <li className="flex items-center">
-            <FaUser Friends className="mr-2 text-blue-600" />
+            <FaUser  className="mr-2 text-blue-600" />
             Simple and user-friendly interface
           </li>
           <li className="flex items-center">
