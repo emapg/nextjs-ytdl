@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { FaDownload, FaYoutube, FaInfoCircle, FaQuestionCircle } from 'react-icons/fa';
 
 export default function Home() {
   const [url, setUrl] = useState<string>('');
@@ -36,7 +37,9 @@ export default function Home() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
-      <h1 className="text-3xl font-bold mb-6 text-center text-blue-600">YouTube Downloader</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center text-blue-600 flex items-center">
+        <FaYoutube className="mr-2 text-red-600" /> YouTube Downloader
+      </h1>
       <form onSubmit={handleDownload} className="bg-white p-6 rounded-lg shadow-md w-full max-w-md mb-10">
         <input
           type="text"
@@ -56,9 +59,10 @@ export default function Home() {
         </select>
         <button
           type="submit"
-          className={`bg-blue-500 text-white p-2 rounded w-full ${loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-600'}`}
+          className={`bg-blue-500 text-white p-2 rounded w-full flex items-center justify-center ${loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-600'}`}
           disabled={loading}
         >
+          <FaDownload className="mr-2" />
           {loading ? 'Downloading...' : 'Download'}
         </button>
         {error && <p className="text-red-500 mt-4">{error}</p>}
@@ -66,7 +70,9 @@ export default function Home() {
 
       {/* About Section */}
       <section className="bg-white p-6 rounded-lg shadow-md w-full max-w-2xl mb-10">
-        <h2 className="text-2xl font-bold mb-4">About</h2>
+        <h2 className="text-2xl font-bold mb-4 flex items-center">
+          <FaInfoCircle className="mr-2 text-blue-600" /> About
+        </h2>
         <p className="text-gray-700">
           This YouTube Downloader allows you to easily download videos and audio from YouTube. Just enter the URL of the video you want to download, select the format, and click the download button.
         </p>
@@ -74,8 +80,10 @@ export default function Home() {
 
       {/* Features Section */}
       <section className="bg-white p-6 rounded-lg shadow-md w-full max-w-2xl mb-10">
-        <h2 className="text-2xl font-bold mb-4">Features</h2>
-        <ul className="list-disc list-inside text-gray-700">
+        <h2 className="text-2xl font-bold mb-4 flex items-center">
+          <FaQuestionCircle className="mr-2 text-blue-600" /> Features
+        </h2>
+        <ul className="list-disc list-ins ide text-gray-700">
           <li>Download videos in high quality (MP4)</li>
           <li>Extract audio as MP3 files</li>
           <li>Simple and user-friendly interface</li>
@@ -86,7 +94,9 @@ export default function Home() {
 
       {/* FAQ Section */}
       <section className="bg-white p-6 rounded-lg shadow-md w-full max-w-2xl mb-10">
-        <h2 className="text-2xl font-bold mb-4">FAQ</h2>
+        <h2 className="text-2xl font-bold mb-4 flex items-center">
+          <FaQuestionCircle className="mr-2 text-blue-600" /> FAQ
+        </h2>
         <div className="text-gray-700">
           <h3 className="font-semibold">Q: Is it legal to download YouTube videos?</h3>
           <p>A: Downloading videos from YouTube may violate their terms of service. Please ensure you have the right to download the content before doing so.</p>
