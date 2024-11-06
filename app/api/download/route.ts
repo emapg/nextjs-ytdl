@@ -10,9 +10,14 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: 'URL is required' }, { status: 400 });
   }
 
-  const options = format === 'mp3'
-    ? { filter: (f: videoFormat) => f.container === 'mp3' }
-    : { filter: (f: videoFormat) => f.container === 'mp4' };
+  let options;
+  if (format === 'mp3') {
+    // For MP3, we filter for audio formats
+    options = { filter: (f: videoFormat) => f.container === 'mp4' && f.audioBitrate > 0 }; // Use mp4 container with audio
+  } else {
+    // For MP4, we filter for video formats
+    options = { filter: (f: videoFormat) => f.container === 'mp4' };
+  }
 
   const videoStream = ytdl(url, options);
   const fileName = format === 'mp3' ? 'audio.mp3' : 'video.mp4';
