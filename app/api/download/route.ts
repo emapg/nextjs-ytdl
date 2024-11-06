@@ -13,7 +13,9 @@ export async function GET(request: Request) {
   let options;
   if (format === 'mp3') {
     // For MP3, we filter for audio formats
-    options = { filter: (f: videoFormat) => f.container === 'mp4' && f.audioBitrate > 0 }; // Use mp4 container with audio
+    options = {
+      filter: (f: videoFormat) => f.container === 'mp4' && f.audioBitrate !== undefined && f.audioBitrate > 0,
+    };
   } else {
     // For MP4, we filter for video formats
     options = { filter: (f: videoFormat) => f.container === 'mp4' };
