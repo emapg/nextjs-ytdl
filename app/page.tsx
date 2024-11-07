@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import axios from 'axios';
-import { FaDownload, FaInfoCircle, FaList, FaQuestionCircle, FaQuoteLeft, FaQuoteRight, FaGithub } from 'react-icons/fa';
+import { FaDownload, FaInfoCircle, FaList, FaQuestionCircle, FaQuoteLeft, FaGithub } from 'react-icons/fa';
 
 export default function Home() {
     const [url, setUrl] = useState('');
@@ -87,13 +87,13 @@ export default function Home() {
             <section className="mb-8">
                 <h2 className="text-3xl font-bold mb-4"><FaQuoteLeft className="inline mr-2" /> Testimonials</h2>
                 <div className="bg-gray-100 p-4 rounded mb-4">
-                    <p className="text-lg italic">"This tool is fantastic! It’s incredibly easy to use and works perfectly." - User A</p>
+                    <p className="text-lg italic">&quot;This tool is fantastic! It&rsquo;s incredibly easy to use and works perfectly.&quot; - User A</p>
                 </div>
                 <div className="bg-gray-100 p-4 rounded mb-4">
-                    <p className="text-lg italic">"I love how simple and effective this YouTube downloader is. Highly recommend!" - User B</p>
+                    <p className="text-lg italic">&quot;I love how simple and effective this YouTube downloader is. Highly recommend!&quot; - User B</p>
                 </div>
                 <div className="bg-gray-100 p-4 rounded mb-4">
-                    <p className="text-lg italic">"Great service! I use it all the time to download my favorite videos." - User C</p>
+                    <p className="text-lg italic">&quot;Great service! I use it all the time to download my favorite videos.&quot; - User C</p>
                 </div>
             </section>
 
