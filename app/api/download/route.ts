@@ -16,7 +16,7 @@ export async function GET(request: Request) {
 
   try {
     // Create a stream for the video/audio
-    const stream = ytdl(url, { filter: (format) => format.container === format });
+    const stream = ytdl(url, { filter: (info) => info.container === format });
 
     // Create a response with the appropriate headers
     const response = new Response(stream, {
