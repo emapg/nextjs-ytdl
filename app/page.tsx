@@ -21,7 +21,7 @@ export default function Home() {
             link.href = window.URL.createObjectURL(blob);
             link.download = `${type}.${response.data.type.split('/')[1]}`;
             link.click();
-        } catch (error) {
+        } catch {
             alert('Failed to download');
         }
         setLoading(false);
