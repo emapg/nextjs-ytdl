@@ -19,7 +19,7 @@ export async function GET(req: Request) {
                 'Content-Type': 'video/mp4',
             },
         });
-    } catch (error) {
+    } catch {
         return NextResponse.json({ error: 'Failed to download video' }, { status: 500 });
     }
 }
