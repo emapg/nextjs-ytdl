@@ -94,43 +94,13 @@ export default function Home() {
         </select>
         <button 
           onClick={handleDownload} 
-          className={`bg-blue-500 text-white rounded-lg py-2 hover:bg-blue-600 w-full flex items-center justify-center ${loading ? 'cursor-not-allowed' : ''}`} 
+          className={`bg-green-500 text-white rounded-lg py-2 hover:bg-green-600 w-full ${loading ? 'opacity-50 cursor-not-allowed' : ''}`} 
           disabled={loading}
         >
-          {loading ? <FaSpinner className="animate-spin mr-2" /> : <FaDownload className="mr-2" />} 
-          {loading ? 'Downloading...' : 'Download'}
+          {loading ? <FaSpinner className="animate-spin" /> : 'Download Video'}
         </button>
-        {message && <p className="text-red-500 text-center mt-2">{message}</p>}
+        {message && <p className="text-red-500 text-center mt-4">{message}</p>}
       </div>
-
-      <div className="bg-white shadow-lg rounded-lg p-6 max-w-md w-full mb-8">
-        <h2 className="text-xl font-bold mb-2"><FaInfoCircle className="inline mr-2" /> About</h2>
-        <p className="text-gray-700">
-          This application allows you to download YouTube videos and audio files easily. Just enter the URL and choose your preferred format.
-        </p>
-      </div>
-
-      <div className="bg-white shadow-lg rounded-lg p-6 max-w-md w-full mb-8">
-        <h2 className="text-xl font-bold mb-2"><FaStar className="inline mr-2" /> Features</h2>
-        <ul className="list-disc list-inside text-gray-700">
-          <li>Download videos in MP4 format</li>
-          <li>Extract audio in MP3 format</li>
-          <li>User-friendly interface</li>
-          <li>Fast and reliable downloads</li>
-        </ul>
-      </div>
-
-      <div className="bg-white shadow-lg rounded-lg p-6 max-w-md w-full mb-8">
-        <h2 className="text-xl font-bold mb-2"><FaQuestionCircle className="inline mr-2" /> FAQ</h2 <p className="text-gray-700 font-semibold">Q: Is this legal?</p>
-        <p className="text-gray-700">A: Downloading copyrighted content without permission may violate YouTube's terms of service.</p>
-        <p className="text-gray-700 font-semibold">Q: What formats can I download?</p>
-        <p className="text-gray-700">A: You can download videos in MP4 format and audio in MP3 format.</p>
-      </div>
-
-      <footer className="bg-gray-200 p-4 w-full text-center">
-        <p className="text-gray-600">© 2023 YouTube Video Downloader. All rights reserved.</p>
-        <p className="text-gray-600">Contact: support@example.com</p>
-      </footer>
     </div>
   );
 }
