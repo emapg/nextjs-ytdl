@@ -1,114 +1,88 @@
 'use client';
 
 import { useState } from 'react';
-import { FaDownload, FaSpinner } from 'react-icons/fa';
-import Image from 'next/image'; // Import Image from next/image
+import axios from 'axios';
+import { FaDownload, FaInfoCircle, FaList, FaQuestionCircle } from 'react-icons/fa';
 
 export default function Home() {
-  const [url, setUrl] = useState('');
-  const [format, setFormat] = useState('mp4');
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState('');
-  const [videoDetails, setVideoDetails] = useState<{ title: string; thumbnail: string } | null>(null);
+    const [url, setUrl] = useState('');
+    const [type, setType] = useState('audio');
+    const [loading, setLoading] = useState(false);
 
-  const handleSearch = async () => {
-    if (!url) {
-      setMessage('Please enter a valid YouTube URL');
-      return;
-    }
+    const handleDownload = async () => {
+        setLoading(true);
+        try {
+            const response = await axios.get(`/api/download`, {
+                params: { url, type },
+                responseType: 'blob',
+            });
+            const blob = new Blob([response.data], { type: response.data.type });
+            const link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = `${type}.${response.data.type.split('/')[1]}`;
+            link.click();
+        } catch (error) {
+            alert('Failed to download');
+        }
+        setLoading(false);
+    };
 
-    try {
-      const response = await fetch(`/api/video-details?url=${encodeURIComponent(url)}`);
-      if (!response.ok) {
-        const error = await response.json();
-        setMessage(error.error || 'Failed to fetch video details.');
-        return;
-      }
-      const data = await response.json();
-      if (data.title && data.thumbnail) {
-        setVideoDetails({ title: data.title, thumbnail: data.thumbnail });
-      } else {
-        setMessage('No video details found.');
-      }
-    } catch (error) {
-      console.error('Error fetching video details:', error);
-      setMessage('An error occurred while fetching video details.');
-    }
-  };
+    return (
+        <div className="container mx-auto p-6">
+            <h1 className="text-4xl font-bold text-center mb-8">YouTube Downloader</h1>
+            <div className="flex flex-col items-center mb-8">
+                <input
+                    type="text"
+                    placeholder="Enter YouTube URL"
+                    value={url}
+                    onChange={(e) => setUrl(e.target.value)}
+                    className="p-2 mb-4 border rounded w-full max-w-md"
+                />
+                <select
+                    value={type}
+                    onChange={(e) => setType(e.target.value)}
+                    className="p-2 mb-4 border rounded w-full max-w-md"
+                >
+                    <option value="audio">Audio</option>
+                    <option value="video">Video</option>
+                </select>
+                <button
+                    onClick={handleDownload}
+                    className="p-2 bg-blue-500 text-white rounded w-full max-w-md"
+                    disabled={loading}
+                >
+                    {loading ? 'Downloading...' : 'Download'} <FaDownload className="inline ml-2" />
+                </button>
+            </div>
+            
+            <section className="mb-8">
+                <h2 className="text-3xl font-bold mb-4"><FaInfoCircle className="inline mr-2" /> About</h2>
+                <p className="text-lg">
+                    This YouTube Downloader allows you to download both audio and video from YouTube. Easily convert your favorite videos into audio files or save them for offline viewing.
+                </p>
+            </section>
 
-  const handleDownload = async () => {
-    if (!url) {
-      setMessage('Please enter a valid YouTube URL');
-      return;
-    }
+            <section className="mb-8">
+                <h2 className="text-3xl font-bold mb-4"><FaList className="inline mr-2" /> Features</h2>
+                <ul className="list-disc list-inside">
+                    <li>Download high-quality audio</li>
+                    <li>Download high-resolution video</li>
+                    <li>Simple and easy-to-use interface</li>
+                    <li>Fast and reliable</li>
+                </ul>
+            </section>
 
-    setLoading(true);
-    setMessage('');
-
-    const response = await fetch(`/api/download?url=${encodeURIComponent(url)}&format=${format}`);
-    
-    if (!response.ok) {
-      const error = await response.json();
-      setMessage(error.error || 'An error occurred while downloading.');
-      setLoading(false);
-      return;
-    }
-
-    const blob = await response.blob();
-    const link = document.createElement('a');
-    link.href = window.URL.createObjectURL(blob);
-    link.download = `video.${format}`;
-    link.click();
-
-    setLoading(false);
-    setMessage('Download started successfully!');
-  };
-
-  return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white shadow-lg rounded-lg p-6 max-w-md w-full mb-8">
-        <h1 className="text-2xl font-bold text-center mb-4">YouTube Video Downloader</h1>
-        <input
-          type="text"
-          placeholder="Enter YouTube URL"
-          value={url}
-          onChange={(e) => setUrl(e.target.value)}
-          className="border border-gray-300 rounded-lg p- 2 w-full mb-4"
-        />
-        <button 
-          onClick={handleSearch} 
-          className="bg-blue-500 text-white rounded-lg py-2 hover:bg-blue-600 w-full mb-4"
-        >
-          Search Video
-        </button>
-        {videoDetails && (
-          <div className="mb-4">
-            <h2 className="text-lg font-semibold">{videoDetails.title}</h2>
-            {videoDetails.thumbnail && (
-              <Image 
-                src={videoDetails.thumbnail} 
-                alt="Video Thumbnail" 
-                width={500} 
-                height={300} 
-                className="rounded-lg mb-2" 
-              />
-            )}
-          </div>
-        )}
-        <select value={format} onChange={(e) => setFormat(e.target.value)} className="border border-gray-300 rounded-lg p-2 w-full mb-4">
-          <option value="mp4">MP4</option>
-          <option value="mp3">MP3</option>
-        </select>
-        <button 
-          onClick={handleDownload} 
-          className={`bg-green-500 text-white rounded-lg py-2 hover:bg-green-600 w-full ${loading ? 'opacity-50 cursor-not-allowed' : ''}`} 
-          disabled={loading}
-        >
-          {loading ? <FaSpinner className="animate-spin" /> : <FaDownload className="mr-2" />} 
-          Download Video
-        </button>
-        {message && <p className="text-red-500 text-center mt-4">{message}</p>}
-      </div>
-    </div>
-  );
+            <section className="mb-8">
+                <h2 className="text-3xl font-bold mb-4"><FaQuestionCircle className="inline mr-2" /> FAQ</h2>
+                <div className="mb-4">
+                    <h3 className="text-xl font-semibold">Q: Is this service free?</h3>
+                    <p>A: Yes, this service is completely free to use.</p>
+                </div>
+                <div className="mb-4">
+                    <h3 className="text-xl font-semibold">Q: Can I download playlists?</h3>
+                    <p>A: Currently, only individual videos can be downloaded. Playlist support may be added in the future.</p>
+                </div>
+            </section>
+        </div>
+    );
 }
