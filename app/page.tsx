@@ -101,13 +101,13 @@ export default function Home() {
         </select>
         <button 
           onClick={handleDownload} 
-          className={`bg-green-500 text-white rounded-lg py-2 hover:bg-green- 600 w-full ${loading ? 'opacity-50 cursor-not-allowed' : ''}`} 
+          className={`bg-green-500 text-white rounded-lg py-2 hover:bg-green-600 w-full ${loading ? 'opacity-50 cursor-not-allowed' : ''}`} 
           disabled={loading}
         >
           {loading ? <FaSpinner className="animate-spin" /> : <FaDownload className="mr-2" />} 
           Download Video
         </button>
-        {message && <p className="text-red-500 text-center mt-4">{message}</p>}
+        {message && <p className="text-red-500 text-center mt -4">{message}</p>}
       </div>
 
       {/* About Section */}
