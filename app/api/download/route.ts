@@ -15,15 +15,20 @@ export async function GET(request: Request) {
   }
 
   try {
-    const stream = ytdl(url, { filter: (f) => f.container === format });
-    const response = NextResponse.next();
-    response.headers.set('Content-Disposition', `attachment; filename=video.${format}`);
-    response.headers.set('Content-Type', format === 'mp4' ? 'video/mp4' : 'audio/mpeg');
+    // Create a stream for the video/audio
+    const stream = ytdl(url, { filter: (format) => format.container === format });
 
-    stream.pipe(response.body);
+    // Create a response with the appropriate headers
+    const response = new Response(stream, {
+      headers: {
+        'Content-Disposition': `attachment; filename=video.${format}`,
+        'Content-Type': format === 'mp4' ? 'video/mp4' : 'audio/mpeg',
+      },
+    });
+
     return response;
   } catch (error) {
-    console.error('Error fetching video:', error);
-    return NextResponse.json({ error: 'An error occurred while fetching the video.' }, { status: 500 });
+    console.error('Error fetching video for download:', error);
+    return NextResponse.json({ error: 'Failed to download video.' }, { status: 500 });
   }
 }
