@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { FaDownload, FaSpinner, FaInfoCircle, FaQuestionCircle, FaStar } from 'react-icons/fa'; // Updated icon
+import { FaDownload, FaSpinner } from 'react-icons/fa';
 import Image from 'next/image';
 
 export default function Home() {
@@ -16,6 +16,9 @@ export default function Home() {
       setMessage('Please enter a valid YouTube URL');
       return;
     }
+
+    setLoading(true); // Start loading state
+    setMessage('');
 
     try {
       const response = await fetch(`/api/video-details?url=${encodeURIComponent(url)}`);
@@ -33,6 +36,8 @@ export default function Home() {
     } catch (error) {
       console.error('Error fetching video details:', error);
       setMessage('An error occurred while fetching video details.');
+    } finally {
+      setLoading(false); // End loading state
     }
   };
 
@@ -65,7 +70,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
       <div className="bg-white shadow-lg rounded-lg p-6 max-w-md w-full mb-8">
         <h1 className="text-2xl font-bold text-center mb-4">YouTube Video Downloader</h1>
         <input
@@ -78,7 +83,9 @@ export default function Home() {
         <button 
           onClick={handleSearch} 
           className="bg-blue-500 text-white rounded-lg py-2 hover:bg-blue-600 w-full mb-4"
+          disabled={loading}
         >
+          {loading ? <FaSpinner className="animate-spin mr-2" /> : null} 
           Search Video
         </button>
         {videoDetails && (
@@ -107,7 +114,7 @@ export default function Home() {
           {loading ? <FaSpinner className="animate-spin" /> : <FaDownload className="mr-2" />} 
           Download Video
         </button>
-        {message && <p className="text-red-500 text-center mt -4">{message}</p>}
+        {message && <p className="text-red-500 text-center mt-4">{message}</p>}
       </div>
 
       {/* About Section */}
@@ -146,13 +153,13 @@ export default function Home() {
       <footer className="bg-gray-800 text-white p-4 w-full">
         <div className="flex justify-center space-x-4">
           <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-gray-400">
-            <FaInfoCircle />
+            GitHub
           </a>
           <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-gray-400">
-            <FaQuestionCircle />
+            Twitter
           </a>
           <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-gray-400">
-            <FaStar />
+            Facebook
           </a>
         </div>
         <p className="text-center mt-2">© 2023 YouTube Video Downloader. All rights reserved.</p>
