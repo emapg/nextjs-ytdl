@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { FaDownload, FaSpinner } from 'react-icons/fa';
-import Image from 'next/image';
+import Image from 'next/image'; // Import Image from next/image
 
 export default function Home() {
   const [url, setUrl] = useState('');
@@ -16,9 +16,6 @@ export default function Home() {
       setMessage('Please enter a valid YouTube URL');
       return;
     }
-
-    setLoading(true); // Start loading state
-    setMessage('');
 
     try {
       const response = await fetch(`/api/video-details?url=${encodeURIComponent(url)}`);
@@ -36,8 +33,6 @@ export default function Home() {
     } catch (error) {
       console.error('Error fetching video details:', error);
       setMessage('An error occurred while fetching video details.');
-    } finally {
-      setLoading(false); // End loading state
     }
   };
 
@@ -70,7 +65,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white shadow-lg rounded-lg p-6 max-w-md w-full mb-8">
         <h1 className="text-2xl font-bold text-center mb-4">YouTube Video Downloader</h1>
         <input
@@ -78,14 +73,12 @@ export default function Home() {
           placeholder="Enter YouTube URL"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
-          className="border border-gray-300 rounded-lg p-2 w-full mb-4"
+          className="border border-gray-300 rounded-lg p- 2 w-full mb-4"
         />
         <button 
           onClick={handleSearch} 
           className="bg-blue-500 text-white rounded-lg py-2 hover:bg-blue-600 w-full mb-4"
-          disabled={loading}
         >
-          {loading ? <FaSpinner className="animate-spin mr-2" /> : null} 
           Search Video
         </button>
         {videoDetails && (
@@ -116,54 +109,6 @@ export default function Home() {
         </button>
         {message && <p className="text-red-500 text-center mt-4">{message}</p>}
       </div>
-
-      {/* About Section */}
-      <div className="bg-white shadow-lg rounded-lg p-6 max-w-md w-full mb-8">
-        <h2 className="text-xl font-bold mb-4">About</h2>
-        <p className="text-gray-700">
-          This YouTube Video Downloader allows you to easily download videos and audio from YouTube in various formats. Simply enter the video URL, choose your desired format, and click download!
-        </p>
-      </div>
-
-      {/* Features Section */}
-      <div className="bg-white shadow-lg rounded-lg p-6 max-w-md w-full mb-8">
-        <h2 className="text-xl font-bold mb-4">Features</h2>
-        <ul className="list-disc list-inside text-gray-700">
-          <li>Download videos in MP4 and MP3 formats</li>
-          <li>Fast and reliable downloads</li>
-          <li>User-friendly interface</li>
-          <li>Responsive design for all devices</li>
-        </ul>
-      </div>
-
-      {/* FAQ Section */}
-      <div className="bg-white shadow-lg rounded-lg p-6 max-w-md w-full mb-8">
-        <h2 className="text-xl font-bold mb-4">FAQ</h2>
-        <div className="mb-2">
-          <h3 className="font-semibold">Q: Is it legal to download YouTube videos?</h3>
-          <p className="text-gray-700">A: Downloading videos may violate YouTube's terms of service. Please ensure you have permission to download the content.</p>
-        </div>
-        <div className="mb-2">
-          <h3 className="font-semibold">Q: What formats can I download?</h3>
-          <p className="text-gray-700">A: You can download videos in MP4 format and audio in MP3 format.</p>
-        </div>
-      </div>
-
-      {/* Footer Section */}
-      <footer className="bg-gray-800 text-white p-4 w-full">
-        <div className="flex justify-center space-x-4">
-          <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-gray-400">
-            GitHub
-          </a>
-          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-gray-400">
-            Twitter
-          </a>
-          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-gray-400">
-            Facebook
-          </a>
-        </div>
-        <p className="text-center mt-2">© 2023 YouTube Video Downloader. All rights reserved.</p>
-      </footer>
     </div>
   );
 }
