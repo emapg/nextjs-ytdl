@@ -18,8 +18,24 @@ export async function GET(request: Request) {
     // Create a stream for the video/audio
     const stream = ytdl(url, { filter: (info) => info.container === format });
 
+    // Wrap the ytdl stream in a ReadableStream
+    const readableStream = new ReadableStream({
+      start(controller) {
+        stream.on('data', (chunk) => {
+          controller.enqueue(chunk);
+        });
+        stream.on('end', () => {
+          controller.close();
+        });
+        stream.on('error', (err) => {
+          console.error('Stream error:', err);
+          controller.error(err);
+        });
+      }
+    });
+
     // Create a response with the appropriate headers
-    const response = new Response(stream, {
+    const response = new Response(readableStream, {
       headers: {
         'Content-Disposition': `attachment; filename=video.${format}`,
         'Content-Type': format === 'mp4' ? 'video/mp4' : 'audio/mpeg',
