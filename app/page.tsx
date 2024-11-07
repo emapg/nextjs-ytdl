@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { FaDownload, FaSpinner, FaInfoCircle, FaQuestionCircle, FaFeatures } from 'react-icons/fa';
+import { FaDownload, FaSpinner, FaInfoCircle, FaQuestionCircle, FaStar } from 'react-icons/fa'; // Updated icon
 import Image from 'next/image';
 
 export default function Home() {
@@ -101,7 +101,7 @@ export default function Home() {
         </select>
         <button 
           onClick={handleDownload} 
-          className={`bg-green-500 text-white rounded-lg py-2 hover:bg-green-600 w-full ${loading ? 'opacity-50 cursor-not-allowed' : ''}`} 
+          className={`bg-green-500 text-white rounded-lg py-2 hover:bg-green- 600 w-full ${loading ? 'opacity-50 cursor-not-allowed' : ''}`} 
           disabled={loading}
         >
           {loading ? <FaSpinner className="animate-spin" /> : <FaDownload className="mr-2" />} 
@@ -112,7 +112,7 @@ export default function Home() {
 
       {/* About Section */}
       <div className="bg-white shadow-lg rounded-lg p-6 max-w-md w-full mb-8">
-        <h2 className="text-xl font-bold mb -4">About</h2>
+        <h2 className="text-xl font-bold mb-4">About</h2>
         <p className="text-gray-700">
           This YouTube Video Downloader allows you to easily download videos and audio from YouTube in various formats. Simply enter the video URL, choose your desired format, and click download!
         </p>
@@ -152,7 +152,7 @@ export default function Home() {
             <FaQuestionCircle />
           </a>
           <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-gray-400">
-            <FaFeatures />
+            <FaStar />
           </a>
         </div>
         <p className="text-center mt-2">© 2023 YouTube Video Downloader. All rights reserved.</p>
