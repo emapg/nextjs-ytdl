@@ -1,7 +1,8 @@
-'use client'; // This is necessary for using hooks in the component
+'use client';
 
 import { useState } from 'react';
-import { FaDownload, FaInfoCircle, FaStar, FaQuestionCircle, FaSpinner } from 'react-icons/fa';
+import { FaDownload, FaSpinner } from 'react-icons/fa';
+import Image from 'next/image'; // Import Image from next/image
 
 export default function Home() {
   const [url, setUrl] = useState('');
@@ -72,7 +73,7 @@ export default function Home() {
           placeholder="Enter YouTube URL"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
-          className="border border-gray-300 rounded-lg p-2 w-full mb-4"
+          className="border border-gray-300 rounded-lg p- 2 w-full mb-4"
         />
         <button 
           onClick={handleSearch} 
@@ -84,7 +85,13 @@ export default function Home() {
           <div className="mb-4">
             <h2 className="text-lg font-semibold">{videoDetails.title}</h2>
             {videoDetails.thumbnail && (
-              <img src={videoDetails.thumbnail} alt="Video Thumbnail" className="rounded-lg mb-2" />
+              <Image 
+                src={videoDetails.thumbnail} 
+                alt="Video Thumbnail" 
+                width={500} 
+                height={300} 
+                className="rounded-lg mb-2" 
+              />
             )}
           </div>
         )}
@@ -97,7 +104,8 @@ export default function Home() {
           className={`bg-green-500 text-white rounded-lg py-2 hover:bg-green-600 w-full ${loading ? 'opacity-50 cursor-not-allowed' : ''}`} 
           disabled={loading}
         >
-          {loading ? <FaSpinner className="animate-spin" /> : 'Download Video'}
+          {loading ? <FaSpinner className="animate-spin" /> : <FaDownload className="mr-2" />} 
+          Download Video
         </button>
         {message && <p className="text-red-500 text-center mt-4">{message}</p>}
       </div>
