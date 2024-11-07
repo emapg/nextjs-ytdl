@@ -12,7 +12,7 @@ export default function Home() {
 
   const handleSearch = async () => {
     if (!url) {
-      alert('Please enter a valid YouTube URL');
+      setMessage('Please enter a valid YouTube URL');
       return;
     }
 
@@ -20,20 +20,24 @@ export default function Home() {
       const response = await fetch(`/api/video-details?url=${encodeURIComponent(url)}`);
       if (!response.ok) {
         const error = await response.json();
-        alert(error.error || 'Failed to fetch video details.');
+        setMessage(error.error || 'Failed to fetch video details.');
         return;
       }
       const data = await response.json();
-      setVideoDetails({ title: data.title, thumbnail: data.thumbnail });
+      if (data.title && data.thumbnail) {
+        setVideoDetails({ title: data.title, thumbnail: data.thumbnail });
+      } else {
+        setMessage('No video details found.');
+      }
     } catch (error) {
       console.error('Error fetching video details:', error);
-      alert('An error occurred while fetching video details.');
+      setMessage('An error occurred while fetching video details.');
     }
   };
 
   const handleDownload = async () => {
     if (!url) {
-      alert('Please enter a valid YouTube URL');
+      setMessage('Please enter a valid YouTube URL');
       return;
     }
 
@@ -79,7 +83,9 @@ export default function Home() {
         {videoDetails && (
           <div className="mb-4">
             <h2 className="text-lg font-semibold">{videoDetails.title}</h2>
-            <img src={videoDetails.thumbnail} alt="Video Thumbnail" className="rounded-lg mb-2" />
+            {videoDetails.thumbnail && (
+              <img src={videoDetails.thumbnail} alt="Video Thumbnail" className="rounded-lg mb-2" />
+            )}
           </div>
         )}
         <select value={format} onChange={(e) => setFormat(e.target.value)} className="border border-gray-300 rounded-lg p-2 w-full mb-4">
@@ -94,11 +100,11 @@ export default function Home() {
           {loading ? <FaSpinner className="animate-spin mr-2" /> : <FaDownload className="mr-2" />} 
           {loading ? 'Downloading...' : 'Download'}
         </button>
-        {message && <p className="text-green-500 text-center mt-2">{message}</p>}
+        {message && <p className="text-red-500 text-center mt-2">{message}</p>}
       </div>
 
       <div className="bg-white shadow-lg rounded-lg p-6 max-w-md w-full mb-8">
-        <h2 className="text -xl font-bold mb-2"><FaInfoCircle className="inline mr-2" /> About</h2>
+        <h2 className="text-xl font-bold mb-2"><FaInfoCircle className="inline mr-2" /> About</h2>
         <p className="text-gray-700">
           This application allows you to download YouTube videos and audio files easily. Just enter the URL and choose your preferred format.
         </p>
@@ -115,8 +121,7 @@ export default function Home() {
       </div>
 
       <div className="bg-white shadow-lg rounded-lg p-6 max-w-md w-full mb-8">
-        <h2 className="text-xl font-bold mb-2"><FaQuestionCircle className="inline mr-2" /> FAQ</h2>
-        <p className="text-gray-700 font-semibold">Q: Is this legal?</p>
+        <h2 className="text-xl font-bold mb-2"><FaQuestionCircle className="inline mr-2" /> FAQ</h2 <p className="text-gray-700 font-semibold">Q: Is this legal?</p>
         <p className="text-gray-700">A: Downloading copyrighted content without permission may violate YouTube's terms of service.</p>
         <p className="text-gray-700 font-semibold">Q: What formats can I download?</p>
         <p className="text-gray-700">A: You can download videos in MP4 format and audio in MP3 format.</p>
