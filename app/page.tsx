@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { FaDownload, FaSpinner } from 'react-icons/fa';
-import Image from 'next/image'; // Import Image from next/image
+import { FaDownload, FaSpinner, FaInfoCircle, FaQuestionCircle, FaFeatures } from 'react-icons/fa';
+import Image from 'next/image';
 
 export default function Home() {
   const [url, setUrl] = useState('');
@@ -73,7 +73,7 @@ export default function Home() {
           placeholder="Enter YouTube URL"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
-          className="border border-gray-300 rounded-lg p- 2 w-full mb-4"
+          className="border border-gray-300 rounded-lg p-2 w-full mb-4"
         />
         <button 
           onClick={handleSearch} 
@@ -109,6 +109,54 @@ export default function Home() {
         </button>
         {message && <p className="text-red-500 text-center mt-4">{message}</p>}
       </div>
+
+      {/* About Section */}
+      <div className="bg-white shadow-lg rounded-lg p-6 max-w-md w-full mb-8">
+        <h2 className="text-xl font-bold mb -4">About</h2>
+        <p className="text-gray-700">
+          This YouTube Video Downloader allows you to easily download videos and audio from YouTube in various formats. Simply enter the video URL, choose your desired format, and click download!
+        </p>
+      </div>
+
+      {/* Features Section */}
+      <div className="bg-white shadow-lg rounded-lg p-6 max-w-md w-full mb-8">
+        <h2 className="text-xl font-bold mb-4">Features</h2>
+        <ul className="list-disc list-inside text-gray-700">
+          <li>Download videos in MP4 and MP3 formats</li>
+          <li>Fast and reliable downloads</li>
+          <li>User-friendly interface</li>
+          <li>Responsive design for all devices</li>
+        </ul>
+      </div>
+
+      {/* FAQ Section */}
+      <div className="bg-white shadow-lg rounded-lg p-6 max-w-md w-full mb-8">
+        <h2 className="text-xl font-bold mb-4">FAQ</h2>
+        <div className="mb-2">
+          <h3 className="font-semibold">Q: Is it legal to download YouTube videos?</h3>
+          <p className="text-gray-700">A: Downloading videos may violate YouTube's terms of service. Please ensure you have permission to download the content.</p>
+        </div>
+        <div className="mb-2">
+          <h3 className="font-semibold">Q: What formats can I download?</h3>
+          <p className="text-gray-700">A: You can download videos in MP4 format and audio in MP3 format.</p>
+        </div>
+      </div>
+
+      {/* Footer Section */}
+      <footer className="bg-gray-800 text-white p-4 w-full">
+        <div className="flex justify-center space-x-4">
+          <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-gray-400">
+            <FaInfoCircle />
+          </a>
+          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-gray-400">
+            <FaQuestionCircle />
+          </a>
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-gray-400">
+            <FaFeatures />
+          </a>
+        </div>
+        <p className="text-center mt-2">© 2023 YouTube Video Downloader. All rights reserved.</p>
+      </footer>
     </div>
   );
 }
