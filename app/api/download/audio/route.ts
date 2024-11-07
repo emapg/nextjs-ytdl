@@ -19,7 +19,7 @@ export async function GET(req: Request) {
                 'Content-Type': 'audio/mpeg',
             },
         });
-    } catch (error) {
+    } catch {
         return NextResponse.json({ error: 'Failed to download audio' }, { status: 500 });
     }
 }
