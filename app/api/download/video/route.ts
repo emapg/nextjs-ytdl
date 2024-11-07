@@ -13,7 +13,23 @@ export async function GET(req: Request) {
         const info = await ytdl.getInfo(url);
         const format = ytdl.chooseFormat(info.formats, { quality: 'highestvideo' });
 
-        return new Response(ytdl(url, { format }).pipe(), {
+        const stream = ytdl(url, { format });
+
+        const readableStream = new ReadableStream({
+            start(controller) {
+                stream.on('data', (chunk) => {
+                    controller.enqueue(chunk);
+                });
+                stream.on('end', () => {
+                    controller.close();
+                });
+                stream.on('error', (err) => {
+                    controller.error(err);
+                });
+            }
+        });
+
+        return new Response(readableStream, {
             headers: {
                 'Content-Disposition': `attachment; filename="video.${format.container}"`,
                 'Content-Type': 'video/mp4',
