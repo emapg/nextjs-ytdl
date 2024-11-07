@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import axios from 'axios';
-import { FaDownload, FaInfoCircle, FaList, FaQuestionCircle } from 'react-icons/fa';
+import { FaDownload, FaInfoCircle, FaList, FaQuestionCircle, FaQuoteLeft, FaQuoteRight, FaGithub } from 'react-icons/fa';
 
 export default function Home() {
     const [url, setUrl] = useState('');
@@ -83,6 +83,30 @@ export default function Home() {
                     <p>A: Currently, only individual videos can be downloaded. Playlist support may be added in the future.</p>
                 </div>
             </section>
+
+            <section className="mb-8">
+                <h2 className="text-3xl font-bold mb-4"><FaQuoteLeft className="inline mr-2" /> Testimonials</h2>
+                <div className="bg-gray-100 p-4 rounded mb-4">
+                    <p className="text-lg italic">"This tool is fantastic! It’s incredibly easy to use and works perfectly." - User A</p>
+                </div>
+                <div className="bg-gray-100 p-4 rounded mb-4">
+                    <p className="text-lg italic">"I love how simple and effective this YouTube downloader is. Highly recommend!" - User B</p>
+                </div>
+                <div className="bg-gray-100 p-4 rounded mb-4">
+                    <p className="text-lg italic">"Great service! I use it all the time to download my favorite videos." - User C</p>
+                </div>
+            </section>
+
+            <footer className="bg-gray-800 text-white py-4 mt-8">
+                <div className="container mx-auto text-center">
+                    <p>&copy; {new Date().getFullYear()} YouTube Downloader. All rights reserved.</p>
+                    <div className="flex justify-center space-x-4 mt-4">
+                        <a href="https://github.com/your-repo" target="_blank" rel="noopener noreferrer" className="text-white hover:text-gray-400">
+                            <FaGithub size={24} />
+                        </a>
+                    </div>
+                </div>
+            </footer>
         </div>
     );
 }
