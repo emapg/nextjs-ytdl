@@ -12,8 +12,8 @@ export default function Home() {
     const handleDownload = async () => {
         setLoading(true);
         try {
-            const response = await axios.get(`/api/download`, {
-                params: { url, type },
+            const response = await axios.get(`/api/download/${type}`, {
+                params: { url },
                 responseType: 'blob',
             });
             const blob = new Blob([response.data], { type: response.data.type });
